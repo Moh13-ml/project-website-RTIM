@@ -1,0 +1,362 @@
+# Guide de Déploiement - Site Web RTIM
+# Association Réseau et Télécommunication Mali
+
+## INFORMATIONS GÉNÉRALES
+- Nom du projet: Site Web RTIM
+- Type: Site web statique (HTML, CSS, JavaScript)
+- Langue: Français
+- Public cible: Mali et Afrique de l'Ouest
+
+## FICHIERS DU PROJET
+- index.html (page principale)
+- styles.css (feuille de style)
+- script.js (fonctionnalités JavaScript)
+- deployment-guide.txt (ce fichier)
+
+## DÉPLOIEMENT LOCAL (DÉVELOPPEMENT ET TEST)
+
+### Méthode 1: Ouverture directe dans le navigateur
+1. Télécharger tous les fichiers du projet
+2. Créer un dossier "RTIM -website" sur votre ordinateur
+3. Placer tous les fichiers dans ce dossier
+4. Double-cliquer sur "index.html" pour ouvrir dans le navigateur
+5. Le site s'ouvrira à l'adresse: file:///chemin/vers/votre/dossier/index.html
+
+**Limitations de cette méthode:**
+- Certaines fonctionnalités JavaScript peuvent être limitées
+- Pas de simulation d'environnement serveur
+- Formulaire d'inscription fonctionne mais données stockées localement uniquement
+
+### Méthode 2: Serveur local avec Python (RECOMMANDÉE)
+**Prérequis:** Python installé sur votre ordinateur
+
+1. Ouvrir le terminal/invite de commande
+2. Naviguer vers le dossier du projet:
+   ```
+   cd chemin/vers/RTIM-website
+   ```
+3. Lancer le serveur local:
+   - Python 3: `python -m http.server 8000`
+   - Python 2: `python -m SimpleHTTPServer 8000`
+4. Ouvrir le navigateur et aller à: http://localhost:8000
+5. Pour arrêter le serveur: Ctrl+C dans le terminal
+
+### Méthode 3: Serveur local avec Node.js
+**Prérequis:** Node.js installé
+
+1. Installer un serveur HTTP simple:
+   ```
+   npm install -g http-server
+   ```
+2. Naviguer vers le dossier du projet
+3. Lancer le serveur:
+   ```
+   http-server -p 8000
+   ```
+4. Ouvrir: http://localhost:8000
+
+### Méthode 4: Extension navigateur (Chrome/Firefox)
+1. Installer l'extension "Live Server" ou "Web Server for Chrome"
+2. Sélectionner le dossier du projet
+3. Lancer le serveur local via l'extension
+
+### Test des fonctionnalités en local
+- ✅ Navigation et sections
+- ✅ Modales de détails des formations
+- ✅ Formulaire d'inscription
+- ✅ Enregistrement des candidats (localStorage)
+- ✅ Système d'administration des candidats
+- ✅ Responsive design
+- ❌ Envoi d'emails (nécessite serveur)
+
+## OPTIONS DE DÉPLOIEMENT EN PRODUCTION
+
+### 1. HÉBERGEMENT GRATUIT
+
+#### GitHub Pages
+1. Créer un compte GitHub (github.com)
+2. Créer un nouveau repository public
+3. Uploader tous les fichiers du projet
+4. Aller dans Settings > Pages
+5. Sélectionner "Deploy from a branch" > "main"
+6. Le site sera accessible à: https://[username].github.io/[repository-name]
+
+#### Netlify
+1. Créer un compte sur netlify.com
+2. Glisser-déposer le dossier du projet sur Netlify
+3. Le site sera automatiquement déployé
+4. URL personnalisée disponible
+
+#### Vercel
+1. Créer un compte sur vercel.com
+2. Importer le projet depuis GitHub ou uploader directement
+3. Déploiement automatique
+
+### 2. HÉBERGEMENT PAYANT (RECOMMANDÉ POUR PRODUCTION)
+
+#### Hébergeurs Africains
+- Afrihost (Afrique du Sud)
+- Liquid Telecom (présent au Mali)
+- Orange Business Services Mali
+
+#### Hébergeurs Internationaux
+- OVH (France) - Bon pour l'Afrique francophone
+- HostGator
+- Bluehost
+- SiteGround
+
+## CONFIGURATION DOMAINE
+
+### Nom de domaine suggéré:
+- artem-mali.org
+- artem-mali.com
+- formation-telecom-mali.org
+
+### Fournisseurs de domaines:
+- Namecheap
+- GoDaddy
+- OVH
+- Gandi
+
+## NOUVELLES FONCTIONNALITÉS AJOUTÉES
+
+### Section Équipe
+- Présentation de 4 membres clés
+- Photos, rôles et expertises
+- Design responsive avec cartes interactives
+
+### Section Partenaires
+- 3 catégories de partenaires
+- 9 partenaires stratégiques
+- Logos et descriptions des collaborations
+
+### Système d'enregistrement des candidats
+- Stockage local des données (localStorage)
+- Génération d'ID unique pour chaque candidat
+- Modal de confirmation d'inscription
+- Statistiques automatiques
+- Fonctions d'administration intégrées
+
+### Fonctions administratives disponibles:
+```javascript
+// Dans la console du navigateur (F12)
+artemAdmin.getAllCandidates()     // Voir tous les candidats
+artemAdmin.getStats()             // Statistiques d'inscription
+artemAdmin.exportData()           // Exporter en JSON
+artemAdmin.searchCandidates({     // Rechercher
+  formation: 'telecom',
+  nom: 'Diarra'
+})
+artemAdmin.clearData()            // Supprimer données
+```
+
+## OPTIMISATIONS AVANT DÉPLOIEMENT
+
+### Performance
+1. Minifier le CSS et JavaScript (optionnel pour ce projet)
+2. Optimiser les images (actuellement utilise des icônes emoji)
+3. Activer la compression GZIP sur le serveur
+
+### SEO
+1. Vérifier les balises meta dans index.html
+2. Ajouter un fichier robots.txt
+3. Créer un sitemap.xml
+
+### Sécurité
+1. Configurer HTTPS (SSL/TLS)
+2. Ajouter des headers de sécurité
+3. Configurer les redirections www/non-www
+
+## CONFIGURATION SERVEUR WEB
+
+### Apache (.htaccess)
+```
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+</IfModule>
+```
+
+### Nginx
+```
+server {
+    listen 80;
+    server_name artem-mali.org www.artem-mali.org;
+    return 301 https://$server_name$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name artem-mali.org www.artem-mali.org;
+    
+    root /var/www/artem;
+    index index.html;
+    
+    location / {
+        try_files $uri $uri/ =404;
+    }
+    
+    gzip on;
+    gzip_types text/css application/javascript text/javascript;
+}
+```
+
+## INTÉGRATION EMAIL (FORMULAIRE D'INSCRIPTION)
+
+### Options recommandées:
+1. **Formspree** (gratuit/payant)
+   - Ajouter action="https://formspree.io/f/[ID]" au formulaire
+   - Pas de code serveur requis
+
+2. **EmailJS** (gratuit/payant)
+   - Service JavaScript pour envoi d'emails
+   - Configuration dans script.js
+
+3. **Netlify Forms** (si hébergé sur Netlify)
+   - Ajouter data-netlify="true" au formulaire
+
+### Configuration email recommandée:
+- Email principal: info@artem-mali.org
+- Email formations: formations@artem-mali.org
+- Email support: support@artem-mali.org
+
+## GESTION DES DONNÉES CANDIDATS
+
+### Stockage actuel (localStorage)
+- Données stockées dans le navigateur
+- Persistantes jusqu'à suppression manuelle
+- Accessible via fonctions artemAdmin
+
+### Migration vers base de données (optionnel)
+1. **Firebase** (Google)
+   - Base de données NoSQL
+   - Authentification intégrée
+   - Hébergement gratuit
+
+2. **Supabase** (alternative open-source)
+   - Base de données PostgreSQL
+   - API REST automatique
+   - Interface d'administration
+
+3. **Airtable** (solution simple)
+   - Interface type tableur
+   - API REST
+   - Facile à utiliser
+
+## MAINTENANCE ET MISES À JOUR
+
+### Contenu à mettre à jour régulièrement:
+1. Dates des prochaines sessions de formation
+2. Tarifs des formations
+3. Témoignages d'étudiants
+4. Statistiques (nombre d'étudiants formés, etc.)
+5. Nouvelles formations disponibles
+6. Informations de l'équipe et partenaires
+
+### Sauvegarde:
+1. Sauvegarder tous les fichiers mensuellement
+2. Exporter les données du formulaire d'inscription
+3. Sauvegarder la base de données (si ajoutée plus tard)
+
+### Gestion des candidats:
+1. Exporter régulièrement les données avec artemAdmin.exportData()
+2. Traiter les candidatures dans un tableur
+3. Contacter les candidats selon les sessions disponibles
+
+## ANALYTICS ET SUIVI
+
+### Google Analytics
+1. Créer un compte Google Analytics
+2. Ajouter le code de suivi dans index.html
+3. Configurer les objectifs (inscriptions, contacts)
+
+### Autres outils:
+- Google Search Console
+- Facebook Pixel (si marketing sur Facebook)
+- Hotjar (analyse comportementale)
+
+## SUPPORT TECHNIQUE
+
+### Contact développeur:
+- Email: mohcisse540@gmail.com
+- Téléphone: +223 71821699
+
+### Documentation technique:
+- HTML5 standard
+- CSS3 avec Flexbox et Grid
+- JavaScript ES6+
+- Responsive design (mobile-first)
+- LocalStorage pour données candidats
+
+## COÛTS ESTIMÉS
+
+### Hébergement gratuit: 0 FCFA/an
+### Hébergement payant: 15,000 - 50,000 FCFA/an
+### Nom de domaine: 8,000 - 15,000 FCFA/an
+### SSL gratuit: Let's Encrypt
+### Email professionnel: 10,000 - 25,000 FCFA/an
+### Service email formulaire: 0 - 20,000 FCFA/an
+
+## CHECKLIST DE DÉPLOIEMENT
+
+□ Tester le site localement (toutes les méthodes)
+□ Vérifier tous les liens et fonctionnalités
+□ Tester le formulaire d'inscription
+□ Vérifier la responsivité mobile
+□ Tester les fonctions d'administration
+□ Configurer l'hébergement
+□ Acheter et configurer le domaine
+□ Configurer SSL/HTTPS
+□ Configurer les emails
+□ Tester le site en production
+□ Configurer Google Analytics
+□ Soumettre à Google Search Console
+□ Former l'équipe ARTEM à la maintenance
+□ Documenter les procédures d'administration
+□ Planifier les sauvegardes régulières
+
+## PROCÉDURES D'ADMINISTRATION
+
+### Accès aux données candidats:
+1. Ouvrir le site web
+2. Appuyer sur F12 pour ouvrir la console
+3. Utiliser les commandes artemAdmin.*
+
+### Export des candidats:
+1. Dans la console: `artemAdmin.exportData()`
+2. Fichier JSON téléchargé automatiquement
+3. Ouvrir avec Excel ou Google Sheets
+
+### Recherche de candidats:
+```javascript
+// Rechercher par formation
+artemAdmin.searchCandidates({formation: 'telecom'})
+
+// Rechercher par nom
+artemAdmin.searchCandidates({nom: 'Diarra'})
+
+// Rechercher par période
+artemAdmin.searchCandidates({
+  dateDebut: '2025-01-01',
+  dateFin: '2025-01-31'
+})
+```
+
+## CONTACT POUR QUESTIONS
+Pour toute question technique concernant ce déploiement,
+contactez l'équipe de développement.
+
+---
+Dernière mise à jour: Septembre 2025
+Version: 2.0 (avec équipe, partenaires et système d'enregistrement)
