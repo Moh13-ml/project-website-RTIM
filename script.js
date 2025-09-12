@@ -651,3 +651,22 @@ setInterval(() => {
   currentIndex = (currentIndex + 1) % slides.length;
   showSlide(currentIndex);
 }, 5000);
+// animation compteurs
+document.addEventListener("DOMContentLoaded", function() {
+    const counters = document.querySelectorAll('.count');
+    counters.forEach(counter => {
+        const updateCount = () => {
+            const target = +counter.getAttribute('data-target');
+            const current = +counter.innerText;
+            const increment = Math.ceil(target / 150);
+
+            if (current < target) {
+                counter.innerText = current + increment > target ? target : current + increment;
+                setTimeout(updateCount, 40);
+            } else {
+                counter.innerText = target + "+";
+            }
+        };
+        updateCount();
+    });
+});
