@@ -686,3 +686,22 @@ document.addEventListener("DOMContentLoaded", () => {
     showSlides(slideIndex);
     startCarousel();
 });
+
+//animation statistique
+const counters = document.querySelectorAll('.count');
+counters.forEach(counter => {
+  const target = +counter.getAttribute('data-target');
+  let count = 0;
+
+  const updateCounter = () => {
+    if (count < target) {
+      count++;
+      counter.innerText = count;
+      requestAnimationFrame(updateCounter);
+    } else {
+      counter.innerText = target + "+"; // 🔹 Ajout du "+"
+    }
+  };
+
+  updateCounter();
+});
