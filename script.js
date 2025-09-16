@@ -622,51 +622,67 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('🔧 Fonctions admin disponibles: artemAdmin.getAllCandidates(), artemAdmin.getStats(), artemAdmin.exportData(), artemAdmin.searchCandidates(criteria), artemAdmin.clearData()');
 });
 //defilement image
-const track = document.querySelector('.carousel-track');
-const slides = Array.from(track.children);
-const prevButton = document.querySelector('.prev');
-const nextButton = document.querySelector('.next');
+let slideIndex = 1;
+let carouselInterval;
 
-let currentIndex = 0;
-
-// Fonction pour afficher une slide
-function showSlide(index) {
-  const slideWidth = slides[0].getBoundingClientRect().width;
-  track.style.transform = `translateX(-${index * slideWidth}px)`;
+// Fonction pour démarrer le défilement automatique
+function startCarousel() {
+    carouselInterval = setInterval(() => {
+        nextSlide();
+    }, 5000); // Change toutes les 5 secondes
 }
 
-// Boutons navigation
-nextButton.addEventListener('click', () => {
-  currentIndex = (currentIndex + 1) % slides.length;
-  showSlide(currentIndex);
-});
+// Fonction pour arrêter le défilement automatique
+function stopCarousel() {
+    clearInterval(carouselInterval);
+}
 
-prevButton.addEventListener('click', () => {
-  currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-  showSlide(currentIndex);
-});
+function nextSlide() {
+    showSlides(slideIndex += 1);
+}
 
-// Auto-défilement toutes les 5s
-setInterval(() => {
-  currentIndex = (currentIndex + 1) % slides.length;
-  showSlide(currentIndex);
-}, 5000);
-// animation compteurs
-document.addEventListener("DOMContentLoaded", function() {
-    const counters = document.querySelectorAll('.count');
-    counters.forEach(counter => {
-        const updateCount = () => {
-            const target = +counter.getAttribute('data-target');
-            const current = +counter.innerText;
-            const increment = Math.ceil(target / 150);
+function prevSlide() {
+    showSlides(slideIndex -= 1);
+}
 
-            if (current < target) {
-                counter.innerText = current + increment > target ? target : current + increment;
-                setTimeout(updateCount, 40);
-            } else {
-                counter.innerText = target + "+";
-            }
-        };
-        updateCount();
-    });
+function currentSlide(n) {
+    showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+    let i;
+    let slides = document.getElementsByClassName("carousel-item");
+    let indicators = document.getElementsByClassName("indicator");
+
+    if (n > slides.length) {
+        slideIndex = 1;
+    }
+    if (n < 1) {
+        slideIndex = slides.length;
+    }
+
+    for (i = 0; i < slides.length; i++) {
+        slides[i].classList.remove("active");
+    }
+
+    for (i = 0; i < indicators.length; i++) {
+        indicators[i].className = indicators[i].className.replace(" active", "");
+    }
+
+    slides[slideIndex - 1].classList.add("active");
+    indicators[slideIndex - 1].className += " active";
+
+    const inner = document.querySelector('.carousel-inner');
+    const itemWidth = slides[0].clientWidth;
+    inner.style.transform = `translateX(-${(slideIndex - 1) * itemWidth}px)`;
+
+    // Pour éviter des problèmes de transition, on arrête et redémarre le défilement
+    stopCarousel();
+    startCarousel();
+}
+
+// Démarre le carousel au chargement de la page
+document.addEventListener("DOMContentLoaded", () => {
+    showSlides(slideIndex);
+    startCarousel();
 });
