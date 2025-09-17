@@ -366,12 +366,16 @@ body {
 .formation-icon {
     font-size: 3rem;
     margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .formation-card h3 {
     color: #1f2937;
     font-size: 1.5rem;
     margin-bottom: 1rem;
+    text-align: center;
 }
 
 .formation-card p {
