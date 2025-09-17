@@ -134,24 +134,39 @@ const formationDetails = {
         price: "180 000 FCFA"
     },
     mobile: {
-        title: "Maintenance Mobile",
+        title: "Maintenance Informatique",
         duration: "2 mois",
         level: "Débutant",
-        description: "Apprenez la réparation et maintenance des équipements de télécommunication mobile (smartphones, tablettes, stations de base).",
+        description: "Apprenez la réparation et maintenance des équipements Informatiques (Ordinateurs, imprimantes, etc.).",
         program: [
-            "Électronique appliquée aux mobiles",
+            "Électronique appliquée aux ordinateurs",
             "Diagnostic de pannes",
             "Réparation hardware",
             "Installation de logiciels",
-            "Maintenance stations de base",
-            "Antennes et propagation",
-            "Outils de mesure",
+            "Maintenance préventive",
+            "Dépannage informatique",
+            "Outils de diagnostic",
             "Ateliers pratiques"
         ],
         prerequisites: "Notions d'électronique souhaitées",
-        certification: "Certificat RTIM de technicien mobile",
-        career: "Technicien mobile, Réparateur, Technicien maintenance",
+        certification: "Certificat RTIM de technicien informatique Maintenance",
+        career: "Technicien informatique, Réparateur, Technicien maintenance",
         price: "60 000 FCFA"
+    },
+
+    webinaires: {
+        title: "Webinaires",
+        duration: "Variable",
+        level: "Tous niveaux",
+        description: "Sessions de formation en ligne sur divers sujets informatiques.",
+        program: [
+            "Variable en fonction du webinaire",
+            "Ateliers interactifs"
+        ],
+        prerequisites: "Non requis",
+        certification: "Attestation de participation",
+        career: "en fonction du sujet",
+        price: "GRATUIT"
     }
 };
 
