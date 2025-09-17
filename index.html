@@ -582,7 +582,7 @@
                     </div>
                 </div>
                 
-                <form class="registration-form" id="registrationForm">
+                <form class="registration-form" action="traitement_inscription.php" method="POST">
                     <h3>Formulaire d'inscription</h3>
                     
                     <div class="form-row">
@@ -610,12 +610,12 @@
                         <label for="formation">Formation souhaitée *</label>
                         <select id="formation" name="formation" required>
                             <option value="">Sélectionnez une formation</option>
-                            <option value="telecom">Réseaux et Télécommunications</option>
-                            <option value="admin">Administration Système</option>
-                            <option value="cyber">Cybersécurité</option>
-                            <option value="fibre">Fibre Optique</option>
-                            <option value="cloud">Cloud Computing</option>
-                            <option value="mobile">Maintenance Mobile</option>
+                            <option value="Réseaux et Télécommunications">Réseaux et Télécommunications</option>
+                            <option value="Administration Système">Administration Système</option>
+                            <option value="Cybersécurité">Cybersécurité</option>
+                            <option value="Fibre Optique">Fibre Optique</option>
+                            <option value="Cloud Computing">Cloud Computing</option>
+                            <option value="Maintenance Mobile">Maintenance Mobile</option>
                         </select>
                     </div>
                     
@@ -623,9 +623,9 @@
                         <label for="niveau">Niveau actuel *</label>
                         <select id="niveau" name="niveau" required>
                             <option value="">Sélectionnez votre niveau</option>
-                            <option value="debutant">Débutant</option>
-                            <option value="intermediaire">Intermédiaire</option>
-                            <option value="avance">Avancé</option>
+                            <option value="Débutant">Débutant</option>
+                            <option value="Intermédiaire">Intermédiaire</option>
+                            <option value="Avancé">Avancé</option>
                         </select>
                     </div>
                     
@@ -640,10 +640,6 @@
                     </div>
                     
                     <button type="submit" class="btn btn-primary btn-full">Soumettre ma candidature</button>
-                    
-                    <div class="registration-status" id="registrationStatus" style="display: none;">
-                        <!-- Status messages will appear here -->
-                    </div>
                 </form>
             </div>
         </div>
