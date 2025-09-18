@@ -1112,3 +1112,20 @@ html {
 .indicator.active {
     background-color: rgba(255, 255, 255, 1);
 }
+/* Style pour le bouton 'Ouvrir dans Google Maps' */
+.map-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #4285F4; /* Couleur bleue de Google */
+    color: white;
+    text-decoration: none; /* Enlève le soulignement du lien */
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.map-button:hover {
+    background-color: #357ae8; /* Couleur plus foncée au survol */
+}
